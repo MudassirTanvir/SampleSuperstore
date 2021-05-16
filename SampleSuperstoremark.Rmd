@@ -1,0 +1,61 @@
+---
+title: "SampleSuperstore"
+author: "Mudassir"
+date: "5/16/2021"
+output: html_document
+---
+
+## R Markdown
+
+These are the packages needed
+
+```{r}
+library(dplyr)
+library(janitor)
+library(ggplot2)
+```
+
+## Reading the data
+
+Reading the data and transforming it
+Profit ratio is the ratio of profit to sales
+
+```{r}
+SampleSuperstore <- read.csv("SampleSuperstore.csv")
+SampleSuperstore <- clean_names(SampleSuperstore)
+colnames(SampleSuperstore)
+SampleSuperstore %>% 
+  mutate(profit_ratio=profit/sales)
+```
+
+## Plotting the sales vs region graph
+
+This graphs show sales across different regions
+
+```{r}
+ggplot(data=SampleSuperstore, aes(x=region,y=sales,fill=ship_mode))+
+  geom_bar(stat="identity")+
+  labs(title="region vs sales using different shipping methods")
+
+```
+
+## Plotting the sales vs sub_category graph
+```{r}
+ggplot(data=SampleSuperstore, aes(x=sub_category,y=sales,fill=category))+
+  geom_bar(stat="identity")+
+  labs(title="sales vs sub_category ")
+```
+
+## Plotting the profit ratio vs region graph
+```{r}
+ggplot(data=SampleSuperstore, aes(x=region,y=profit_ratio))+
+  geom_bar(stat="identity")
+```
+
+## Plotting the profit ratio vs sub_category graph
+```{r}
+ggplot(data=SampleSuperstore, aes(x=sub_category,y=profit_ratio,fill=category))+
+  geom_bar(stat="identity")+
+  labs(title="profit_ratio vs sub_category ")
+```
+
